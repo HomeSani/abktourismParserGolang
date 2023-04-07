@@ -45,5 +45,5 @@ func getMaxPageIndex() int {
 func main() {
 	maxPageIndex := getMaxPageIndex()
 
-	fmt.Println(maxPageIndex)
+	fmt.Println(maxPageIndex) // print
 }
