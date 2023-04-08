@@ -56,7 +56,9 @@ func main() {
 		doc := GetDoc(url)
 
 		doc.Find("tr.stats").Each(func(i int, s *goquery.Selection) {
-			tourStartTime := strings.TrimSpace(s.Find("td.sortie").Text())
+			s.Find("td.sortie").RemoveClass("transp_icon_1")
+			s.Find("td.price span").RemoveClass("bron price_button")
+			tourStartDate := strings.TrimSpace(strings.ReplaceAll(strings.ReplaceAll(s.Find("td.sortie").Text(), "\n", " "), " ", ""))
 			tourName := strings.TrimSpace(s.Find("td.tour").Text())
 			nigthsCount := strings.TrimSpace(s.Find("td.c").First().Text())
 			hotelName := strings.TrimSpace(s.Find("td.link-hotel").Text())
@@ -66,12 +68,13 @@ func main() {
 				havePlaces = "да"
 			}
 			nutrition := strings.TrimSpace(s.Find("td.link-hotel").Next().Next().Text())
-			roomAndAccommodation := strings.TrimSpace(s.Find("td.nw").Next().Next().Text())
-			price := strings.TrimSpace(s.Find("td.price").Children().Text())
+			roomAndAccommodation := strings.TrimSpace(s.Find("td.link-hotel").Next().Next().Next().Text())
+			price := strings.ReplaceAll(s.Find("td.td_price .price").Text(), " ", "")
+			price = strings.ReplaceAll(price, "\n", "")
 			priceType := strings.TrimSpace(s.Find("td.type_price").Children().Text())
 
 			fmt.Println("===========================================================================================")
-			fmt.Println(tourStartTime, tourName, nigthsCount, hotelName, havePlaces, nutrition, roomAndAccommodation, price, priceType)
+			fmt.Println(tourStartDate, tourName, nigthsCount, hotelName, havePlaces, nutrition, roomAndAccommodation, price, priceType)
 			fmt.Println("===========================================================================================")
 		})
 	}
