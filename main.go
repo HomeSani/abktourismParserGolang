@@ -67,20 +67,22 @@ func main() {
 		doc := GetDoc(url)
 
 		doc.Find("tr.stats").Each(func(i int, s *goquery.Selection) {
-			// tourStartTime := strings.TrimSpace(s.Find("td.sortie").Text())
-			// tourName := strings.TrimSpace(s.Find("td.tour").Text())
-			// nigthsCount := strings.TrimSpace(s.Find("td.c").First().Text())
-			// hotelName := strings.TrimSpace(s.Find("td.link-hotel").Text())
-			havePlacesTmp, _ := s.Find("td.nw").Children().Last().Attr("title")
+			tourStartTime := strings.TrimSpace(s.Find("td.sortie").Text())
+			tourName := strings.TrimSpace(s.Find("td.tour").Text())
+			nigthsCount := strings.TrimSpace(s.Find("td.c").First().Text())
+			hotelName := strings.TrimSpace(s.Find("td.link-hotel").Text())
+			havePlacesTmp, _ := s.Find("td.nw").Children().Attr("title")
 			havePlaces := strings.TrimSpace(havePlacesTmp)
-			// nutrition := strings.TrimSpace(s.Find("td.nw").Next().Text())
-			// roomAndAccommodation := strings.TrimSpace(s.Find("td.nw").Next().Next().Text())
-			// price := strings.TrimSpace(s.Find("td.price").Children().Text())
-			// priceType := strings.TrimSpace(s.Find("td.type_price").Children().Text())
+			if havePlaces == "" {
+				havePlaces = "да"
+			}
+			nutrition := strings.TrimSpace(s.Find("td.nw").Next().Text())
+			roomAndAccommodation := strings.TrimSpace(s.Find("td.nw").Next().Next().Text())
+			price := strings.TrimSpace(s.Find("td.price").Children().Text())
+			priceType := strings.TrimSpace(s.Find("td.type_price").Children().Text())
 
 			fmt.Println("===========================================================================================")
-			// fmt.Println(tourStartTime, tourName, nigthsCount, hotelName, havePlaces, nutrition, roomAndAccommodation, price, priceType)
-			fmt.Println(havePlaces)
+			fmt.Println(tourStartTime, tourName, nigthsCount, hotelName, havePlaces, nutrition, roomAndAccommodation, price, priceType)
 			fmt.Println("===========================================================================================")
 		})
 	}
